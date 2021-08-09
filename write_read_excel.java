@@ -42,124 +42,16 @@ public class write_read_excel {
        return wb;
     }
 
-    /**
-     * 判断合并了行
-     * @param sheet
-     * @param row
-     * @param column
-     * @return
-     */
-//    private boolean  isMergedRow(Sheet sheet,int row ,int column) {
-//        int sheetMergeCount = sheet.getNumMergedRegions();
-//        for (int i = 0; i < sheetMergeCount; i++) {
-//            CellRangeAddress range = sheet.getMergedRegion(i);
-//            int firstColumn = range.getFirstColumn();
-//            int lastColumn = range.getLastColumn();
-//            int firstRow = range.getFirstRow();
-//            int lastRow = range.getLastRow();
-//            if(row == firstRow && row == lastRow){
-//                if(column >= firstColumn && column <= lastColumn){
-//                    return true;
-//                }
-//            }
-//        }
-//        return false;
-//    }
-
-/**
-     * 判断指定的单元格是否是合并单元格
-     * @param sheet
-     * @param row 行下标
-     * @param column 列下标
-     * @return 1：合并单元的第一格；2：代表在合并单元里；3，代表不在合并单元里
-     */
-//    private  int isMergedRegion(Sheet sheet,int row ,int column) {
-//        int sheetMergeCount = sheet.getNumMergedRegions();
-//        System.out.println(sheetMergeCount);
-//        for (int i = 0; i < sheetMergeCount; i++) {
-//            //获得某一个合并单元格
-//            CellRangeAddress range = sheet.getMergedRegion(i);
-//            int firstColumn = range.getFirstColumn();//获得合并单元格的开始的列
-//            System.out.println("开始的列"+firstColumn);
-//            int lastColumn = range.getLastColumn();//获得合并单元格的结束的列
-//            System.out.println("结束的列"+lastColumn);
-//            int firstRow = range.getFirstRow();//获得合并单元格的开始的行
-//            System.out.println("开始的行"+firstRow);
-//            int lastRow = range.getLastRow();//获取合并单元格的结束的行
-//            System.out.println("结束的行"+lastRow);
-//            System.out.println("---------------------");
-//            /*
-//            * 判断给出的单元格是否在这个合并的单元格的区间内，
-//            * 是就返回true,不是就返回flase
-//            *
-//            * */
-//            if(row == firstRow ){
-//                if(column == firstColumn ){
-//                    return 1;
-//                }
-//            }
-//        }
-//        return 2;
-//    }
-
-/**
-     * 获取单元格的值
-     * @param cell
-     * @return
-     */
-//    public String getCellValue(Cell cell){
-//
-//        if(cell == null) return "";
-//
-//        if(cell.getCellTypeEnum() == CellType.STRING){
-//
-//            return cell.getStringCellValue();
-//
-//        }else if(cell.getCellTypeEnum() == CellType.BOOLEAN){
-//
-//            return String.valueOf(cell.getBooleanCellValue());
-//
-//        }else if(cell.getCellTypeEnum() == CellType.FORMULA){
-//
-//            return cell.getCellFormula() ;
-//
-//        }else if(cell.getCellTypeEnum()==CellType.NUMERIC){
-//
-//            return String.valueOf(cell.getNumericCellValue());
-//
-//        }
-//        return "";
-//    }
-
-
-
-     /**
-     * 获取合并单元格的值
-     * @param sheet
-     * @param row
-     * @param column
-     * @return
-     */
-//    public  String getMergedRegionValue(Sheet sheet ,int row , int column){
-//        int sheetMergeCount = sheet.getNumMergedRegions();
-//        for(int i = 0 ; i < sheetMergeCount ; i++){
-//            CellRangeAddress ca = sheet.getMergedRegion(i);
-//            int firstColumn = ca.getFirstColumn();
-//            int lastColumn = ca.getLastColumn();
-//            int firstRow = ca.getFirstRow();
-//            int lastRow = ca.getLastRow();
-//            if(row >= firstRow && row <= lastRow){
-//                if(column >= firstColumn && column <= lastColumn){
-//                    Row fRow = sheet.getRow(firstRow);//得到合并单元格的第一行
-//                    Cell fCell = fRow.getCell(firstColumn);//根据上面的内容最终确定单元格。
-//                    return getCellValue(fCell) ;
-//                }
-//            }
-//        }
-//        return null ;
-//    }
-
-
+    /*
+    * 读取excel文件，并且按照两个级别进行存储。
+    * 表的格式是
+    * |   | b |
+    * | a | c |
+    * |   | d |
+    *    a
+    *   /|\
+    *  b c d
+    * */
     public List<Map<String,String>> readExcel(String filedPath,int sheetIndex){
         List<Map<String,String>> list = new ArrayList<>();
         Workbook wb = getWorkbook(filedPath);
