@@ -22,11 +22,11 @@ public class JudgeIP {
     * */
     public static boolean judgeInternaloutsidedefault(String IP){
 
-        int[] addr = getIPTONumber(IP);
+        int[] addr = getIPToNumber(IP);
         return internalIp(addr);
     }
 
-    private static int[] getIPTONumber(String IP){
+    private static int[] getIPToNumber(String IP){
         int[] number = new int[4];
         IP = IP.trim();
         String[] ips = IP.split("\\.");
@@ -60,27 +60,13 @@ public class JudgeIP {
             default: return false;
         }
     }
-    /*
-     * 把自定义的单独的ip存储在Map中并且返回
-     */
-   public static Map<String,Boolean> getCustomIP(List<String> IP){
 
-       Map<String,Boolean> ip_map = new HashMap<>();
-        for(String ip:IP){
-            if(!judgeInternaloutsidedefault(ip)){
-                ip_map.put(ip,true);
-            }
-        }
-        return ip_map;
-   }
    /*
    * 判断某个ip是否是给定的IP(ipv6也适用这种方法)
    * */
-    public static boolean isExistenceInRange(String ip,Map<String,Boolean> map){
-        if(!ipLegal(ip)){
-            return false;
-        }
-        if(map.containsKey(ip)){
+    public static boolean isExistenceInRange(String ip,HashSet<String> hashset){
+
+        if(hashset.contains(ip)){
             return true;
         }
         return false;
